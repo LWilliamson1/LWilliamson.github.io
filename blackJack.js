@@ -258,7 +258,7 @@ $(document).ready(function() {
 		}
 			
 		if(deck.success){
-
+			playAgain.addClass("hidden");
 			player = new Player("player", "Player1", deck.id);	
 			dealer = new Player("dealer", "Dealer", deck.id);
 			hit.prop("disabled",false);
