@@ -197,6 +197,7 @@ $(document).ready(function() {
 		hit.prop("disabled",true);
 		dealer.showHand();
 		stay.prop("disabled",true);
+		playAgain.removeClass("hidden");
 	}
 	
 	startGame = function() {
