@@ -1,0 +1,29 @@
+body {
+	background-color: #194D1E;
+}
+
+h1{
+	color: #F7FCF8;
+}
+
+h1{
+	color: #F7FCF8;
+
+}
+
+#playerStatus, #dealerStatus{
+	color: #F7FCF8;
+	float: right;
+}
+
+td  img{
+	height: 157px;
+	width: 113px;
+}
+
+.jumbotron {
+	color: #F7FCF8;
+	outline: 1pt;
+	background-image: url(https://www.circusreno.com/images/casino/casinoPromotionsHeader.jpg);
+	background-size: cover;
+}
