@@ -51,6 +51,7 @@ $(document).ready(function() {
 						}
 					}
 					if(oneCardScore!=0 && this.score == 21){
+						this.cardCount = 2;
 						displayWinner();
 					}
 					else{
