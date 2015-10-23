@@ -246,6 +246,7 @@ $(document).ready(function() {
 
 	});
 	stay.mouseup(function() {
+		playAgain.removeClass("hidden");
 		hit.prop("disabled",true);
 		dealer.showHand();
 		stay.prop("disabled",true);
