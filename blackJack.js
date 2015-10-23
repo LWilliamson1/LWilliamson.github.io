@@ -243,6 +243,8 @@ $(document).ready(function() {
 		stay.prop("disabled",true);
 		playDealer(dealer, deck.id);
 		displayWinner(dealer, player);
+		playAgain.removeClass("hidden");
+		
 	});
 	playAgain.mouseup(function() {
 		if(deck.remaining < 100){
@@ -258,6 +260,7 @@ $(document).ready(function() {
 			$(".table").html("<tr></tr>");
 			$("#playerStatus").css("color", "#F7FCF8");
 			$("#dealerStatus").css("color", "#F7FCF8");
+			playAgain.addClass("hidden");
 		}
 		else{
 			//error message
