@@ -50,11 +50,8 @@ $(document).ready(function() {
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
 			this.setScore();
-			setTimeout(function() {
-				this.showHand();
-			},2000);
+			setTimeout(this.showHand,1500);
 			this.displayScore();
-			
 			
 			if(this.score > 21){
 				this.bust();
