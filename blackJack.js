@@ -45,7 +45,6 @@ $(document).ready(function() {
 		
 		this.bust = function bust(){
 			$("#"+this.type+"Status").html("Bust");
-			busted();
 		}
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
