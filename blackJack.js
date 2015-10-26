@@ -50,8 +50,9 @@ $(document).ready(function() {
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
 			this.setScore();
+			setTimeout(this.showHand(),2000);
 			this.displayScore();
-			this.showHand();
+			
 			
 			if(this.score > 21){
 				this.bust();
@@ -156,7 +157,7 @@ $(document).ready(function() {
 		
 		while(dealer.score < 17 && dealer.score < 21){
 			console.log(dealer.score);
-			setTimeout(dealer.hit(deckId), 1500);	
+			dealer.hit(deckId);	
 		}
 	}
 	
