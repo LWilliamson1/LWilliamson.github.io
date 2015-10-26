@@ -51,7 +51,7 @@ $(document).ready(function() {
 			draw(deckId, this, 1);
 			this.setScore();
 			var self = this.showHand.bind(this);
-			setTimeout(self.showHand,2000);
+			//setTimeout(self.showHand,2000);
 			this.showHand();
 			this.displayScore();
 			
