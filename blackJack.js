@@ -157,15 +157,13 @@ $(document).ready(function() {
 		dealer.displayScore();
 		
 		while(dealer.score < 17 && dealer.score < 21){
-			console.log(dealer.score);
 			dealer.hit(deckId);	
 		}
 	}
 	
 	displayWinner = function(){
 		dealer.displayScore();
-		console.log(player.score);
-		console.log(dealer.score);
+
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
 			loseCount++;
 			if(dealer.hand.length == 2 && dealer.score==21){
