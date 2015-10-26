@@ -112,7 +112,7 @@ $(document).ready(function() {
 	function Dealer(deckId){
 		this.name = "Dealer";
 		this.setFirstCardScore = function setFirstCardScore(){
-			if(isNaN(this.hand[i]["value"])){
+			if(isNaN(this.hand[0]["value"])){
 				if(this.hand[0]["value"]!="ACE"){
 					this.score = this.score + 10;
 				}
