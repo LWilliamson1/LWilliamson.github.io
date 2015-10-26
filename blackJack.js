@@ -211,6 +211,9 @@ $(document).ready(function() {
 		draw(deck.id, player, 2);
 		draw(deck.id, dealer, 2);
 
+		player.showHand();
+		dealer.showHand();
+		
 		player.setScore();
 		dealer.setScore();
 		
@@ -223,8 +226,8 @@ $(document).ready(function() {
 			
 		}
 		
-		player.showHand();
-		dealer.showHand();
+		
+		
 	
 	}
 
