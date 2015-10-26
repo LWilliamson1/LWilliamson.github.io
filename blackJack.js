@@ -50,13 +50,13 @@ $(document).ready(function() {
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
 			this.setScore();
-			var self = this.showHand.bind(this);
+			//var self = this.showHand.bind(this);
 			//setTimeout(self.showHand,2000);
 			this.showHand();
 			this.displayScore();
 			
-			if(this.score > 21){
-				this.bust();
+			if(this.score > 21 && this.type == "player"){
+				endGame();
 			}
 		}
 		
@@ -167,14 +167,17 @@ $(document).ready(function() {
 		console.log(player.score);
 		console.log(dealer.score);
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
+			loseCount++;
 			if(dealer.hand.length == 2 && dealer.score==21){
 				$("#dealerStatus").html("BLACKJACK!").css("color", "gold");
+				
 			}
 			else{
 				$("#dealerStatus").html("Winner!");
 			}
 		}
 		else if(player.score > dealer.score && player.score <= 21 || dealer.score > 21){
+			winCount++;
 			if(player.hand.length == 2 && player.score==21){
 				$("#playerStatus").html("BLACKJACK!").css("color", "gold");
 				
@@ -184,20 +187,13 @@ $(document).ready(function() {
 			}
 		}
 		else{
-			//push
+			//
 			$("#playerStatus").html("Push");
 			$("#dealerStatus").html("Push");
 		}
-		
+		$("#scoreCount").html(winCount+"-"+loseCount);
 		console.log(dealer.hand);
 		console.log(player.hand);
-	}
-	busted = function(){
-		displayWinner(dealer, player);
-		hit.prop("disabled",true);
-		dealer.showHand();
-		stay.prop("disabled",true);
-		playAgain.removeClass("hidden");
 	}
 	
 	startGame = function() {
@@ -229,6 +225,15 @@ $(document).ready(function() {
 	
 	}
 
+	endGame = function() {
+		playAgain.removeClass("hidden");
+		hit.prop("disabled",true);
+		dealer.showHand();
+		stay.prop("disabled",true);
+		playDealer(dealer, deck.id);
+		displayWinner(dealer, player);
+	}
+	
 	var deck;
 	createNewDeck();
 	
@@ -243,6 +248,8 @@ $(document).ready(function() {
 	var hit = $("#hit");
 	var stay = $("#stay");
 	var playAgain = $("#playAgain");
+	var winCount = 0;
+	var loseCount = 0;	
 	
 	startGame();
 	
@@ -251,12 +258,7 @@ $(document).ready(function() {
 
 	});
 	stay.mouseup(function() {
-		playAgain.removeClass("hidden");
-		hit.prop("disabled",true);
-		dealer.showHand();
-		stay.prop("disabled",true);
-		playDealer(dealer, deck.id);
-		displayWinner(dealer, player);
+		endGame();
 	});
 	playAgain.mouseup(function() {
 		if(deck.remaining < 100){
