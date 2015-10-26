@@ -167,11 +167,9 @@ $(document).ready(function() {
 	}
 	
 	displayWinner = function(){
-		
+		dealer.showHand();
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
 			if(dealer.hand.length == 2 && dealer.score==21){
-				dealer.setScore();
-				dealer.showHand();
 				$("#dealerStatus").html("BLACKJACK!").css("color", "gold");
 			}
 			else{
@@ -180,8 +178,6 @@ $(document).ready(function() {
 		}
 		else if(player.score > dealer.score && player.score <= 21 || dealer.score > 21){
 			if(player.hand.length == 2 && player.score==21){
-				dealer.showHand();
-				dealer.setScore();
 				$("#playerStatus").html("BLACKJACK!").css("color", "gold");
 				
 			}
@@ -195,8 +191,8 @@ $(document).ready(function() {
 			$("#dealerStatus").html("Push");
 		}
 		
-		console.log("Dealer: "+dealer.hand);
-		console.log("Player: "+player.hand);
+		console.log(dealer.hand);
+		console.log(player.hand);
 	}
 	busted = function(){
 		displayWinner(dealer, player);
