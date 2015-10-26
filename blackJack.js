@@ -51,7 +51,7 @@ $(document).ready(function() {
 						}
 					}
 					if(oneCardScore!=0 && this.score == 21){
-						this.cardCount = 2;
+						//this.cardCount = 2;
 						displayWinner();
 					}
 					else{
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		
 		this.showHand = function showHand() {
 			var cardsToShow = this.hand.length;
-			if(this.type=="dealer" && this.cardCount == 0){
+			if(this.type=="dealer" && cardsToShow == 2){
 				cardsToShow = 1;
 			}
 			
