@@ -14,16 +14,9 @@ $(document).ready(function() {
 		this.cardCount = 0;
 		this.hand = [];
 		this.setScore = function setScore(){
-			this.score = 0;
+			this.score = 0
 			var aceCount = 0;
-			var countNum = this.hand.length;
-			var oneCardScore = 0;
-			var twoCardScore = 0;
-			if(this.type == "dealer" && this.cardCount==0){
-				countNum = 1;
-			}
-			
-			for(var i=0; i < countNum; i++){
+			for(var i=0; i < this.hand.length; i++){
 				if(isNaN(this.hand[i]["value"])){
 					if(this.hand[i]["value"]!="ACE"){
 						this.score = this.score + 10;
@@ -31,18 +24,12 @@ $(document).ready(function() {
 					else{
 						aceCount++;
 						this.score = this.score + 11;
-						/*
-						if(this.score <= 10){
-							this.score = this.score + 11;
-						}
-						else{
-							this.score = this.score + 1;
-						}*/
 					}
 				}
 				else{
 					this.score = this.score + Number(this.hand[i]["value"]);
 				}
+			/*	
 				if(this.type=="dealer" && this.cardCount==0){
 					if(oneCardScore == 0){
 						oneCardScore = this.score;
@@ -58,6 +45,7 @@ $(document).ready(function() {
 						this.score=oneCardScore;
 					}
 				}
+				*/
 				
 				
 			}
@@ -65,7 +53,7 @@ $(document).ready(function() {
 				this.score = this.score - 10;
 				aceCount--;
 			}
-			this.displayScore();
+			//this.displayScore();
 		}
 		this.getScore = function getScore(){	
 			return this.score;	
@@ -81,6 +69,7 @@ $(document).ready(function() {
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
 			this.setScore();
+			this.displayScore();
 			this.showHand();
 			
 			if(this.score > 21){
@@ -90,10 +79,11 @@ $(document).ready(function() {
 		
 		this.showHand = function showHand() {
 			var cardsToShow = this.hand.length;
+			/*
 			if(this.type=="dealer" && cardsToShow == 2){
 				cardsToShow = 1;
 			}
-			
+			*/
 			for(var i = this.cardCount; i < cardsToShow; i++){
 				if(this.cardCount % 3 == 0 && this.cardCount != 0){
 					$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[i]["image"]+"></img></td>");
@@ -102,15 +92,45 @@ $(document).ready(function() {
 					$("#"+this.name+" tr").last().append("<td><img src="+this.hand[i]["image"]+"></img></td>");
 				}
 			}
+			
+			this.cardCount = this.hand.length;
+			
+			/*
 			if(this.cardCount==0 && this.type == "player"){
 				this.cardCount = 2;
 			}
 			else{
 				this.cardCount++;
 			}
+			*/
 		}
 	}
 
+	dealer.prototype = new Player();
+	dealer.prototype.constructor = dealer(deckId);
+	
+	function dealer(deckId){
+		this.name = "Dealer";
+		this.setFirstCardScore = function setFirstCardScore{
+				if(this.hand[0]["value"]!="ACE"){
+						this.score = this.score + 10;
+					}
+					else{
+						this.score = this.score + 11;
+					}
+				}
+				else{
+					this.score = this.score + Number(this.hand[i]["value"]);
+				}
+				this.displayScore();
+		}
+		this.showFirstCard = function showFirstCard{
+			$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
+			this.cardCount = 1;
+		}
+			
+	}
+	
 	createNewDeck = function () {
 		var newDeck = new XMLHttpRequest();
 		var url = "http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6";
@@ -157,8 +177,11 @@ $(document).ready(function() {
 	}
 	
 	
-	playDealer = function(dealer, deckId){	 
+	playDealer = function(dealer, deckId){	
+		dealer.showHand();
 		dealer.setScore();
+		dealer.displayScore();
+		
 		while(dealer.score < 17 && dealer.score < 21){
 			dealer.hit(deckId);
 			setTimeout(function(){
@@ -167,7 +190,7 @@ $(document).ready(function() {
 	}
 	
 	displayWinner = function(){
-		dealer.showHand();
+		dealer.displayScore();
 		console.log(player.score);
 		console.log(dealer.score);
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
@@ -210,10 +233,10 @@ $(document).ready(function() {
 		draw(deck.id, dealer, 2);
 
 		player.showHand();
-		dealer.showHand();
+		dealer.showFirstCard();
 		
 		player.setScore();
-		dealer.setScore();
+		dealer.setFirstCardScore();
 		
 		if(player.score == 21){
 			displayWinner(dealer,player);
@@ -235,7 +258,7 @@ $(document).ready(function() {
 	if(deck.success){
 
 		var player = new Player("player", "Player1", deck.id);	
-		var dealer = new Player("dealer", "Dealer");
+		var dealer = new Dealer(deck.id);
 	}
 	else{
 		//error message
