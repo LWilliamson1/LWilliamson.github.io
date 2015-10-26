@@ -111,26 +111,26 @@ $(document).ready(function() {
 	
 	function Dealer(deckId){
 		this.name = "Dealer";
-	}
-	Dealer.prototype.setFirstCardScore = function(){
-		if(isNaN(this.hand[0]["value"])){
-			if(this.hand[0]["value"]!="ACE"){
-				this.score = this.score + 10;
+	
+		this.setFirstCardScore = function setFirstCardScore(){
+			if(isNaN(this.hand[0]["value"])){
+				if(this.hand[0]["value"]!="ACE"){
+					this.score = this.score + 10;
+				}
+				else{
+					this.score = this.score + 11;
+				}
 			}
 			else{
-				this.score = this.score + 11;
+				this.score = this.score + Number(this.hand[0]["value"]);
 			}
+			this.displayScore();
 		}
-		else{
-			this.score = this.score + Number(this.hand[0]["value"]);
+		this.showFirstCard = function showFirstCard(){
+			$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
+			this.cardCount = 1;
 		}
-		this.displayScore();
-	}
-	Dealer.prototype.showFirstCard = function(){
-		$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
-		this.cardCount = 1;
-	}
-			
+	}		
 	
 	
 	createNewDeck = function () {
@@ -238,7 +238,10 @@ $(document).ready(function() {
 		dealer.showFirstCard();
 		
 		player.setScore();
+		player.displayScore();
+		
 		dealer.setFirstCardScore();
+		dealer.displayScore();
 		
 		if(player.score == 21){
 			displayWinner(dealer,player);
@@ -291,7 +294,7 @@ $(document).ready(function() {
 		if(deck.success){
 			playAgain.addClass("hidden");
 			player = new Player("player", "Player1", deck.id);	
-			dealer = new Player("dealer", "Dealer", deck.id);
+			dealer = new Dealer(deck.id);
 			hit.prop("disabled",false);
 			stay.prop("disabled",false);
 			$(".table").html("<tr></tr>");
