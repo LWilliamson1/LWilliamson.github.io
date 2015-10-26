@@ -168,6 +168,8 @@ $(document).ready(function() {
 	
 	displayWinner = function(){
 		dealer.showHand();
+		console.log(player.score);
+		console.log(dealer.score);
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
 			if(dealer.hand.length == 2 && dealer.score==21){
 				$("#dealerStatus").html("BLACKJACK!").css("color", "gold");
