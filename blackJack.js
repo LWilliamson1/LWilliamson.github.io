@@ -111,26 +111,27 @@ $(document).ready(function() {
 	
 	function Dealer(deckId){
 		this.name = "Dealer";
-		this.setFirstCardScore = function setFirstCardScore(){
-			if(isNaN(this.hand[0]["value"])){
-				if(this.hand[0]["value"]!="ACE"){
-					this.score = this.score + 10;
-				}
-				else{
-					this.score = this.score + 11;
-				}
+	}
+	dealer.prototype.setFirstCardScore = function(){
+		if(isNaN(this.hand[0]["value"])){
+			if(this.hand[0]["value"]!="ACE"){
+				this.score = this.score + 10;
 			}
 			else{
-				this.score = this.score + Number(this.hand[0]["value"]);
+				this.score = this.score + 11;
 			}
-			this.displayScore();
 		}
-		this.showFirstCard = function showFirstCard(){
-			$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
-			this.cardCount = 1;
+		else{
+			this.score = this.score + Number(this.hand[0]["value"]);
 		}
-			
+		this.displayScore();
 	}
+	dealer.prototype.showFirstCard = function(){
+		$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
+		this.cardCount = 1;
+	}
+			
+	
 	
 	createNewDeck = function () {
 		var newDeck = new XMLHttpRequest();
