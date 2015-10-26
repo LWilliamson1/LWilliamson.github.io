@@ -107,7 +107,7 @@ $(document).ready(function() {
 	}
 
 	dealer.prototype = new Player();
-	dealer.prototype.constructor = dealer(deckId);
+	//dealer.prototype.constructor = dealer(deckId);
 	
 	function dealer(deckId){
 		this.name = "Dealer";
