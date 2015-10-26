@@ -112,6 +112,7 @@ $(document).ready(function() {
 	function Dealer(deckId){
 		this.name = "Dealer";
 		this.type = "dealer";
+		this.hand = [];
 		this.setFirstCardScore = function setFirstCardScore(){
 			if(isNaN(this.hand[0]["value"])){
 				if(this.hand[0]["value"]!="ACE"){
@@ -188,7 +189,7 @@ $(document).ready(function() {
 			console.log(dealer.score);
 			dealer.hit(deckId);
 			setTimeout(function(){
-			},10000);
+			},10000);	
 		}
 	}
 	
