@@ -55,8 +55,11 @@ $(document).ready(function() {
 			this.showHand();
 			this.displayScore();
 			
-			if(this.score > 21 && this.type == "player"){
-				endGame();
+			if(this.score > 21){
+				this.bust()
+				if(this.type=="player"){
+					endGame();
+				}
 			}
 		}
 		
