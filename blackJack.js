@@ -194,6 +194,9 @@ $(document).ready(function() {
 			$("#playerStatus").html("Push");
 			$("#dealerStatus").html("Push");
 		}
+		
+		console.log("Dealer: "+dealer.hand);
+		console.log("Player: "+player.hand);
 	}
 	busted = function(){
 		displayWinner(dealer, player);
