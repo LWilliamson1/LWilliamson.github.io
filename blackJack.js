@@ -112,17 +112,18 @@ $(document).ready(function() {
 	function dealer(deckId){
 		this.name = "Dealer";
 		this.setFirstCardScore = function setFirstCardScore{
+			if(isNaN(this.hand[i]["value"])){
 				if(this.hand[0]["value"]!="ACE"){
-						this.score = this.score + 10;
-					}
-					else{
-						this.score = this.score + 11;
-					}
+					this.score = this.score + 10;
 				}
 				else{
-					this.score = this.score + Number(this.hand[i]["value"]);
+					this.score = this.score + 11;
 				}
-				this.displayScore();
+			}
+			else{
+				this.score = this.score + Number(this.hand[i]["value"]);
+			}
+			this.displayScore();
 		}
 		this.showFirstCard = function showFirstCard{
 			$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[0]["image"]+"></img></td>");
