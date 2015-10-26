@@ -14,7 +14,7 @@ $(document).ready(function() {
 		this.cardCount = 0;
 		this.hand = [];
 		this.setScore = function setScore(){
-			this.score = 0
+			this.score = 0;
 			var aceCount = 0;
 			for(var i=0; i < this.hand.length; i++){
 				if(isNaN(this.hand[i]["value"])){
@@ -29,31 +29,12 @@ $(document).ready(function() {
 				else{
 					this.score = this.score + Number(this.hand[i]["value"]);
 				}
-			/*	
-				if(this.type=="dealer" && this.cardCount==0){
-					if(oneCardScore == 0){
-						oneCardScore = this.score;
-						if(oneCardScore > 9){
-							countNum++;
-						}
-					}
-					if(oneCardScore!=0 && this.score == 21){
-						//this.cardCount = 2;
-						displayWinner();
-					}
-					else{
-						this.score=oneCardScore;
-					}
-				}
-				*/
-				
 				
 			}
 			while(this.score > 21 && aceCount > 0){
 				this.score = this.score - 10;
 				aceCount--;
 			}
-			//this.displayScore();
 		}
 		this.getScore = function getScore(){	
 			return this.score;	
@@ -79,11 +60,7 @@ $(document).ready(function() {
 		
 		this.showHand = function showHand() {
 			var cardsToShow = this.hand.length;
-			/*
-			if(this.type=="dealer" && cardsToShow == 2){
-				cardsToShow = 1;
-			}
-			*/
+
 			for(var i = this.cardCount; i < cardsToShow; i++){
 				if(this.cardCount % 3 == 0 && this.cardCount != 0){
 					$("#"+this.name+" tr").last().after("<tr><td><img src="+this.hand[i]["image"]+"></img></td>");
@@ -95,14 +72,6 @@ $(document).ready(function() {
 			
 			this.cardCount = this.hand.length;
 			
-			/*
-			if(this.cardCount==0 && this.type == "player"){
-				this.cardCount = 2;
-			}
-			else{
-				this.cardCount++;
-			}
-			*/
 		}
 	}
 
@@ -244,8 +213,9 @@ $(document).ready(function() {
 		
 		dealer.setFirstCardScore();
 		dealer.displayScore();
+		dealer.setScore();
 		
-		if(player.score == 21){
+		if(player.score == 21 || dealer.score == 21){
 			displayWinner(dealer,player);
 			hit.prop("disabled",true);
 			dealer.showHand();
