@@ -155,9 +155,10 @@ $(document).ready(function() {
 		dealer.showHand();
 		dealer.setScore();
 		dealer.displayScore();
-		
-		while(dealer.score < 17 && dealer.score < 21){
-			dealer.hit(deckId);	
+		if(player.score <= 21){
+			while(dealer.score < 17 && dealer.score < 21){
+				dealer.hit(deckId);	
+			}
 		}
 	}
 	
