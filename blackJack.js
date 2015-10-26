@@ -121,7 +121,7 @@ $(document).ready(function() {
 				}
 			}
 			else{
-				this.score = this.score + Number(this.hand[i]["value"]);
+				this.score = this.score + Number(this.hand[0]["value"]);
 			}
 			this.displayScore();
 		}
