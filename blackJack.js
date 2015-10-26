@@ -106,10 +106,10 @@ $(document).ready(function() {
 		}
 	}
 
-	dealer.prototype = new Player();
-	//dealer.prototype.constructor = dealer(deckId);
+	Dealer.prototype = new Player();
+	Dealer.prototype.constructor = Dealer;
 	
-	function dealer(deckId){
+	function Dealer(deckId){
 		this.name = "Dealer";
 		this.setFirstCardScore = function setFirstCardScore(){
 			if(isNaN(this.hand[i]["value"])){
