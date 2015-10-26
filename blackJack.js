@@ -156,9 +156,7 @@ $(document).ready(function() {
 		
 		while(dealer.score < 17 && dealer.score < 21){
 			console.log(dealer.score);
-			setTimeout(function(){
-				dealer.hit(deckId);
-			},2000);	
+			setTimeout(dealer.hit(deckId), 1500);	
 		}
 	}
 	
