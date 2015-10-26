@@ -11,6 +11,10 @@ h1{
 
 }
 
+td {
+	text-align:center;
+}
+
 #playerStatus, #dealerStatus{
 	color: #F7FCF8;
 	float: right;
