@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 	}
 
-	shuffleDeck = function (deck) {
+	shuffleDeck = function () {
 		var shuffle = new XMLHttpRequest();
 		var url = "http://deckofcardsapi.com/api/deck/"+deck.id+"/shuffle/";
 		shuffle.open("GET", url, false);
@@ -263,7 +263,7 @@ $(document).ready(function() {
 	});
 	playAgain.mouseup(function() {
 		if(deck.remaining < 100){
-			shuffleDeck(deck);
+			shuffleDeck();
 		}
 			
 		if(deck.success){
