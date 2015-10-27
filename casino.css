@@ -27,6 +27,11 @@ td  img{
 
 .jumbotron {
 	color: #F7FCF8;
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
 	outline: 1pt;
 	background-image: url(https://www.circusreno.com/images/casino/casinoPromotionsHeader.jpg);
 	background-size: cover;
