@@ -122,8 +122,8 @@ $(document).ready(function() {
 		var url = "http://deckofcardsapi.com/api/deck/"+deck.id+"/shuffle/";
 		shuffle.open("GET", url, false);
 		shuffle.send();
-		var newDeck = JSON.parse(newDeck.responseText);
-		deck = new Deck(newDeck["deck_id"], newDeck["remaining"],newDeck["success"], newDeck["shuffled"]);
+		shuffle = JSON.parse(shuffle.responseText);
+		deck = new Deck(shuffle["deck_id"], shuffle["remaining"], shuffle["success"], shuffle["shuffled"]);
 	}
 	
 	draw = function (id, player, count) {
@@ -133,8 +133,11 @@ $(document).ready(function() {
 		draw.open("GET", url, false);
 		draw.send();
 		var hand = player.hand;
-		var cards = JSON.parse(draw.responseText)["cards"]
-
+		var response = JSON.parse(draw.responseText);
+		var cards = JSON.parse(draw.responseText)["cards"];
+		deck.remaining = response["remaining"];
+		//console.log(response);
+		
 		for(var i=0; i < cards.length; i++){
 			hand.push(cards[i]);
 		}
@@ -142,6 +145,7 @@ $(document).ready(function() {
 		return JSON.parse(draw.responseText);
 	}
 	
+/*	
 	addToHand = function(id, player, cards){
 		var pile = new XMLHttpRequest();
 		var url = "http://deckofcardsapi.com/api/deck/"+id+"/pile/"+player.name+"/add/?cards="+hand;
@@ -151,7 +155,7 @@ $(document).ready(function() {
 
 		return JSON.parse(pile.responseText);			
 	}
-	
+*/	
 	
 	playDealer = function(dealer, deckId){	
 		dealer.showHand();
@@ -234,6 +238,17 @@ $(document).ready(function() {
 		playDealer(dealer, deck.id);
 		displayWinner(dealer, player);
 	}
+	newGame = function(){
+		playAgain.addClass("hidden");
+		player = new Player("player", "Player1", deck.id);	
+		dealer = new Dealer(deck.id);
+		hit.prop("disabled",false);
+		stay.prop("disabled",false);
+		$(".table").html("<tr></tr>");
+		$("#playerStatus").css("color", "#F7FCF8");
+		$("#dealerStatus").css("color", "#F7FCF8");
+		startGame();
+	}
 	
 	var deck;
 	createNewDeck();
@@ -262,27 +277,20 @@ $(document).ready(function() {
 		endGame();
 	});
 	playAgain.mouseup(function() {
+		
 		if(deck.remaining < 100){
+			console.log("SHUFFLE");
 			$("#scoreCount").html("Shuffling Deck");
-			setTimeout(shuffleDeck, 3000);
-			$("#scoreCount").html(winCount+"-"+loseCount);
-		}
-			
-		if(deck.success){
-			playAgain.addClass("hidden");
-			player = new Player("player", "Player1", deck.id);	
-			dealer = new Dealer(deck.id);
-			hit.prop("disabled",false);
-			stay.prop("disabled",false);
 			$(".table").html("<tr></tr>");
-			$("#playerStatus").css("color", "#F7FCF8");
-			$("#dealerStatus").css("color", "#F7FCF8");
+			setTimeout(function() {
+				shuffleDeck();
+				$("#scoreCount").html(winCount+"-"+loseCount);
+				newGame();
+				}, 3000);		
 		}
 		else{
-			//error message
+			newGame();
 		}
 		
-		
-		startGame();
 	});
 });
