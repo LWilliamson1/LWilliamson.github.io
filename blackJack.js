@@ -263,7 +263,9 @@ $(document).ready(function() {
 	});
 	playAgain.mouseup(function() {
 		if(deck.remaining < 100){
-			shuffleDeck();
+			$("#scoreCount").html("Shuffling Deck");
+			setTimeout(shuffleDeck, 3000);
+			$("#scoreCount").html(winCount+"-"+loseCount);
 		}
 			
 		if(deck.success){
