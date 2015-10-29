@@ -33,8 +33,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Larry's Casino</a>
+				
+			<a class="navbar-brand" href="#">Larry's Casino</a>
+				
         </div>
+		<div class="navbar-header pull-right">
+			<ul class="nav navbar-nav pull-left">
+			<a class="navbar-brand" href="#" style="float:right">Chip Count: $<span id="chips">500</span></a>
+			</ul>
+		</div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
@@ -52,8 +59,12 @@
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
-          </ul>
+		</ul>
+
         </div><!--/.nav-collapse -->
+		
+			
+	
       </div>
     </nav>
 	<div class="container theme-showcase" role="main">
@@ -61,7 +72,9 @@
 			<h1>Larry's Casino</h1>
 			<p>Welcome to Larry's Casino currently the only game available is Black Jack. More games are on the way!</p>
 		</div>
+
 		<div class="row">
+
 		<div class="page-header col-lg-2 col-xs-6">
 			<h1>Player 1</h1>
 		</div>
@@ -86,18 +99,24 @@
 				</table>
 			</div>
 			<div class="col-lg-2 col-xs-12">
-				<button type="button" class="btn btn-block btn-success" id="hit">Hit</button>
-				<button type="button" class="btn btn-block btn-info" id="stay">Stay</button>
-				<button type="button" class="btn btn-block btn-primary hidden" id="playAgain">Play Again</button>
+				<button type="button" class="btn btn-block btn-success hidden" id="hit">Hit</button>
+				<button type="button" class="btn btn-block btn-info hidden" id="stay">Stay</button>
+				<button type="button" class="btn btn-block btn-primary" id="playAgain" disabled="true">Play</button>
+				<button type="button" class="btn btn-block btn-default"  id="bet">Bet: <span id="betVal">0</span></button>
+				<button type="button" class="btn btn-warning btn-block col-lg-1" style="width: 48%; float:left;" id="plus5">5</button>
+				<button type="button" class="btn btn-warning btn-block col-lg-1" style="width: 48%; float:right;" id="plus10">10</button>
+				
 			</div>
 			<div class="col-lg-5 col-xs-12" id="Dealer">
 				<table class="table">
 					<tr>
+                <!-- <td><img src="http://3.bp.blogspot.com/_1AgA_BSRr40/TKD6eQs5VVI/AAAAAAAAApg/y1zrkdaSr1Q/s1600/BeeBack.jpg"></img></td>-->
 					</tr>
+                    
 				</table>
 			</div>
 		</div>
 	</div>
-
-
+    </body>
 </html>
+

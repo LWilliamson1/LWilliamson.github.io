@@ -173,6 +173,7 @@ $(document).ready(function() {
 
 		if(dealer.score > player.score && dealer.score <= 21 || player.score > 21){
 			loseCount++;
+			winnings=0;
 			if(dealer.hand.length == 2 && dealer.score==21){
 				$("#dealerStatus").html("BLACKJACK!").css("color", "gold");
 				
@@ -183,26 +184,34 @@ $(document).ready(function() {
 		}
 		else if(player.score > dealer.score && player.score <= 21 || dealer.score > 21){
 			winCount++;
+			winnings = bet * 2;
 			if(player.hand.length == 2 && player.score==21){
+				winnings = (bet * 3)/ 2
 				$("#playerStatus").html("BLACKJACK!").css("color", "gold");
 				
 			}
 			else{
 				$("#playerStatus").html("Winner!");
 			}
+		
 		}
 		else{
-			//
+			winnings = 0;
 			$("#playerStatus").html("Push");
 			$("#dealerStatus").html("Push");
 		}
+		console.log("Winnings: "+winnings);
+		chipCount = chipCount + winnings;
+		playerChips.html(chipCount);
 		$("#scoreCount").html(winCount+"-"+loseCount);
-		console.log(dealer.hand);
-		console.log(player.hand);
+		//console.log(dealer.hand);
+		//console.log(player.hand);
 	}
 	
+	
+	
 	startGame = function() {
-		
+
 		draw(deck.id, player, 2);
 		draw(deck.id, dealer, 2);
 
@@ -218,11 +227,15 @@ $(document).ready(function() {
 		
 		if(player.score == 21 || dealer.score == 21){
 			displayWinner(dealer,player);
-			hit.prop("disabled",true);
+			hit.addClass("hidden");
 			dealer.showHand();
-			stay.prop("disabled",true);
+			stay.addClass("hidden");
 			playAgain.removeClass("hidden");
-			
+			playAgain.prop("disabled", true);
+			plus10.removeClass("hidden");
+			plus5.removeClass("hidden");
+			betSpan.text("0");
+			bet = Number($("#betVal").val());			
 		}
 		
 		
@@ -232,21 +245,30 @@ $(document).ready(function() {
 
 	endGame = function() {
 		playAgain.removeClass("hidden");
-		hit.prop("disabled",true);
+		playAgain.prop("disabled", true);
+		plus10.removeClass("hidden");
+		plus5.removeClass("hidden");
+		hit.addClass("hidden");
 		dealer.showHand();
-		stay.prop("disabled",true);
+		stay.addClass("hidden");
 		playDealer(dealer, deck.id);
 		displayWinner(dealer, player);
+		betSpan.text("0");
+		bet = Number($("#betVal").val());
 	}
 	newGame = function(){
 		playAgain.addClass("hidden");
+		plus10.addClass("hidden");
+		plus5.addClass("hidden");
 		player = new Player("player", "Player1", deck.id);	
 		dealer = new Dealer(deck.id);
-		hit.prop("disabled",false);
-		stay.prop("disabled",false);
+		hit.removeClass("hidden");
+		stay.removeClass("hidden");
 		$(".table").html("<tr></tr>");
 		$("#playerStatus").css("color", "#F7FCF8");
 		$("#dealerStatus").css("color", "#F7FCF8");
+		
+		
 		startGame();
 	}
 	
@@ -264,11 +286,35 @@ $(document).ready(function() {
 	var hit = $("#hit");
 	var stay = $("#stay");
 	var playAgain = $("#playAgain");
+	var winnings = 0;
+	var playerChips = $("#chips");
+	var chipCount = Number(playerChips.text());
+	console.log(chipCount);
+	plus5 = $("#plus5");
+	plus10 = $("#plus10");
+	bet = Number($("#betVal").val());
+	betSpan = $("#betVal");
 	var winCount = 0;
 	var loseCount = 0;	
+	//playerChips.text(Number(chipCount - bet));
+
 	
-	startGame();
+	//startGame();
 	
+	plus5.mouseup(function() {
+		bet=bet+5;
+		betSpan.text(bet);
+		chipCount = chipCount - 5;
+		playerChips.text(Number(chipCount));
+		playAgain.prop("disabled", false);
+	});
+	plus10.mouseup(function() {
+		bet=bet+10
+		betSpan.text(bet);
+		chipCount = chipCount - 10;
+		playerChips.text(Number(chipCount));
+		playAgain.prop("disabled", false);
+	});
 	hit.mouseup(function() {
 		player.hit(deck.id);
 
