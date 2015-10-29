@@ -186,7 +186,7 @@ $(document).ready(function() {
 			winCount++;
 			winnings = bet * 2;
 			if(player.hand.length == 2 && player.score==21){
-				winnings = (bet * 3)/ 2
+				winnings = ((bet * 3)/ 2) + bet;
 				$("#playerStatus").html("BLACKJACK!").css("color", "gold");
 				
 			}
@@ -196,7 +196,7 @@ $(document).ready(function() {
 		
 		}
 		else{
-			winnings = 0;
+			winnings = bet;
 			$("#playerStatus").html("Push");
 			$("#dealerStatus").html("Push");
 		}
@@ -228,6 +228,7 @@ $(document).ready(function() {
 		if(player.score == 21 || dealer.score == 21){
 			displayWinner(dealer,player);
 			hit.addClass("hidden");
+			doubleDown.addClass("hidden");
 			dealer.showHand();
 			stay.addClass("hidden");
 			playAgain.removeClass("hidden");
@@ -249,6 +250,7 @@ $(document).ready(function() {
 		plus10.removeClass("hidden");
 		plus5.removeClass("hidden");
 		hit.addClass("hidden");
+		doubleDown.addClass("hidden");
 		dealer.showHand();
 		stay.addClass("hidden");
 		playDealer(dealer, deck.id);
@@ -264,6 +266,7 @@ $(document).ready(function() {
 		dealer = new Dealer(deck.id);
 		hit.removeClass("hidden");
 		stay.removeClass("hidden");
+		doubleDown.removeClass("hidden");
 		$(".table").html("<tr></tr>");
 		$("#playerStatus").css("color", "#F7FCF8");
 		$("#dealerStatus").css("color", "#F7FCF8");
@@ -286,9 +289,12 @@ $(document).ready(function() {
 	var hit = $("#hit");
 	var stay = $("#stay");
 	var playAgain = $("#playAgain");
+	var doubleDown = $("#doubleDown");
+	
 	var winnings = 0;
 	var playerChips = $("#chips");
 	var chipCount = Number(playerChips.text());
+	
 	console.log(chipCount);
 	plus5 = $("#plus5");
 	plus10 = $("#plus10");
@@ -300,6 +306,17 @@ $(document).ready(function() {
 
 	
 	//startGame();
+	
+	doubleDown.mouseup(function() {
+		
+		chipCount = chipCount - bet;
+		bet = bet * 2;
+		console.log(bet);
+		betSpan.text(bet);
+		playerChips.text(Number(chipCount));
+		player.hit(deck.id);
+		endGame();
+	});
 	
 	plus5.mouseup(function() {
 		bet=bet+5;
