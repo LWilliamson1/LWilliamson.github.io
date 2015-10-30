@@ -48,6 +48,7 @@ $(document).ready(function() {
 		}
 		this.hit = function hit(deckId){
 			draw(deckId, this, 1);
+			doubleDown.addClass("hidden");
 			this.setScore();
 			//var self = this.showHand.bind(this);
 			//setTimeout(self.showHand,2000);
